@@ -1,31 +1,35 @@
-import Footer from "./Components/Footer/Footer";
-import Header from "./Components/Header/Header";
-import MainPage from "./Components/MainPage/MainPage";
-import styled, {createGlobalStyle} from 'styled-components'
+import { useState } from "react"
 
-const GlobalStyles = createGlobalStyle`
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-`
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`
 function App() {
+
+
+  const [ultimoClick, setUltimoClick] = useState(0)
+  const [penultimoClick, setPenultimoClick] = useState(0)
+  const [resultado, setResultado] = useState()
+
+
+
+  const atualizarOcorrenciaDeCliques = () => {
+    setPenultimoClick(new Date())
+    if(penultimoClick !== 0){
+      setResultado((new Date() - penultimoClick) / 1000)
+      console.log((new Date() - penultimoClick) / 1000)
+      setPenultimoClick(0)
+
+    }
+  }
+    
+
+ 
+
   return (
+
     <>
-    <GlobalStyles/>
-    <Container>
-      <Header/>
-      <MainPage/>
-      <Footer/>
-    </Container>
+      <button onClick={() => {atualizarOcorrenciaDeCliques()}}>Clique em Mim</button>
+      <p> Aqui {ultimoClick} </p>
+
     </>
-  );
+  )
 }
 
 export default App;
